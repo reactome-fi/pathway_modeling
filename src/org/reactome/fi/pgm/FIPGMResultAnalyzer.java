@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-import org.reactome.cancer.CancerGeneExpressionCommon;
+import org.reactome.cancer.base.CancerGeneExpressionCommon;
 
 /**
  * This class is used to process results generated from the PGM_FI model.

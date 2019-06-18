@@ -42,7 +42,7 @@ import org.reactome.fi.pgm.FIPGMConstructor.PGMType;
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.InteractionUtilities;
 import org.reactome.r3.util.MathUtilities;
-import org.reactome.r3.util.UniProtAnalyzer;
+import org.reactome.r3.util.UniProtProteinLengthHelper;
 
 /**
  * The main class for running the FI PGM model.
@@ -78,7 +78,7 @@ public class FIPGMRunner {
                 geneToScore.put(tokens[0], new Double(tokens[1]));
         }
         fu.close();
-        Map<String, Integer> geneToLength = new UniProtAnalyzer().loadGeneToProteinLength();
+        Map<String, Integer> geneToLength = new UniProtProteinLengthHelper().loadGeneToProteinLength();
         Set<String> sharedGenes = InteractionUtilities.getShared(geneToScore.keySet(), geneToLength.keySet());
         List<Double> scores = new ArrayList<Double>();
         List<Double> lengths = new ArrayList<Double>();

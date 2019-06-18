@@ -67,15 +67,15 @@ public class BooleanNetwork {
 	    // Need to extract all variables for this relation
 	    if (variables == null)
 	        variables = new HashSet<>();
-	    if (relations != null) {
-	        for (BooleanRelation relation : relations) {
-	            if (relation.getInputVariables() != null) {
-	                for (BooleanVariable var : relation.getInputVariables())
-	                    variables.add(var);
-	            }
-	            if (relation.getOutputVariable() != null)
-	                variables.add(relation.getOutputVariable());
+	    if (relations == null)
+	        relations = new HashSet<>();
+	    for (BooleanRelation relation : relations) {
+	        if (relation.getInputVariables() != null) {
+	            for (BooleanVariable var : relation.getInputVariables())
+	                variables.add(var);
 	        }
+	        if (relation.getOutputVariable() != null)
+	            variables.add(relation.getOutputVariable());
 	    }
 	    resetIds();
 	}
@@ -83,12 +83,16 @@ public class BooleanNetwork {
 	private void resetIds() {
 	    // Set ids
 	    int index = 0;
-	    for (BooleanVariable var : variables)
-	        var.setId(index ++);
+	    if (variables != null) {
+	        for (BooleanVariable var : variables)
+	            var.setId(index ++);
+	    }
 	    // Reset relations: make sure relations and variables have different ids.
 	    // Otherwise, JAXB unmarshalling will be wrong
-	    for (BooleanRelation relation : relations)
-	        relation.setId(index ++);
+	    if (relations != null) {
+	        for (BooleanRelation relation : relations)
+	            relation.setId(index ++);
+	    }
 	}
 
 	public void setRelations(Set<BooleanRelation> relations) {

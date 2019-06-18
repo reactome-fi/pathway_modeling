@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-import org.reactome.cancer.MATFileLoader;
+import org.reactome.cancer.base.MATFileLoader;
 import org.reactome.factorgraph.Factor;
 import org.reactome.factorgraph.common.DataType;
 import org.reactome.factorgraph.common.ObservationFactorHandler;

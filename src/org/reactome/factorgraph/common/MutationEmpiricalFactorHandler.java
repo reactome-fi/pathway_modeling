@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.math3.random.EmpiricalDistribution;
-import org.reactome.cancer.MAFMutationAssessorAnnotator;
+import org.reactome.cancer.base.MAFMutationAssessorAnnotator;
 
 /**
  * This class is used to handle mutation related factor generation.

@@ -14,12 +14,13 @@ import java.util.Set;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.junit.Test;
-import org.reactome.cancer.MATFileLoader;
+import org.reactome.cancer.base.MATFileLoader;
+import org.reactome.data.UniProtAnalyzer;
 import org.reactome.factorgraph.common.DataType;
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.InteractionUtilities;
 import org.reactome.r3.util.MathUtilities;
-import org.reactome.r3.util.UniProtAnalyzer;
+import org.reactome.r3.util.UniProtProteinLengthHelper;
 
 /**
  * A customized MATFileLoader to control the mutation file loading.
@@ -159,7 +160,7 @@ public class FIMAFFileLoader extends MATFileLoader {
                     geneToScoreSum.put(gene, score + scoreSum);
             }
         }
-        Map<String, Integer> geneToLength = new UniProtAnalyzer().loadGeneToProteinLength();
+        Map<String, Integer> geneToLength = new UniProtProteinLengthHelper().loadGeneToProteinLength();
         List<Double> scoreList = new ArrayList<Double>();
         List<Double> lengthList = new ArrayList<Double>();
         for (String gene : geneToScoreSum.keySet()) {

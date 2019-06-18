@@ -23,7 +23,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
-import org.reactome.r3.util.MCLClusteringResult;
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.HibernateUtil;
 import org.reactome.r3.util.InteractionUtilities;
@@ -1064,12 +1063,9 @@ public class DrugPathwayImpactAnalyzer {
             parameters.add(DIR + inFileNames[i]);
             parameters.add("2.0");
             parameters.add(DIR + outFileNames[i]);
-            MCLClusteringResult result = new MCLClusteringResult();
             String[] output = runner.runScript(parameters.toArray(new String[0]));
-            result.setOutput(output[0]);
-            result.setError(output[1]);
-            System.out.println("System.out: " + result.getOutput());
-            System.out.println("System.err: " + result.getError());
+            System.out.println("System.out: " + output[0]);
+            System.out.println("System.err: " + output[1]);
         }
 //        checkDrugClusterOverlaps();
     }

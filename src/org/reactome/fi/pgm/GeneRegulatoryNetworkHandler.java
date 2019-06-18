@@ -14,8 +14,8 @@ import org.gk.model.GKInstance;
 import org.gk.model.ReactomeJavaConstants;
 import org.gk.persistence.MySQLAdaptor;
 import org.junit.Test;
+import org.reactome.r3.graph.GraphAnalyzer;
 import org.reactome.r3.util.FileUtility;
-import org.reactome.r3.util.GraphAnalyzer;
 import org.reactome.r3.util.InteractionUtilities;
 
 /**
