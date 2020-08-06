@@ -120,12 +120,15 @@ public class BNEntityExpandHelper {
         BooleanRelation relation = new BooleanRelation();
         network.addRelation(relation);
         relation.setOutputVariable(complexVar);
-        for (GKInstance inst : list) {
+        // Update on August 6, 2020: An GKInstance may be listed multiple time in the list because of
+        // stoichiometry. However, for this BN, we will just use a single copy.
+        Set<GKInstance> set = new HashSet<>(list);
+        for (GKInstance inst : set) {
             BooleanVariable var = variableManager.getVariable(inst);
             relation.addInputVariable(var, false);
         }
         // Need to call recursive
-        for (GKInstance inst : list) {
+        for (GKInstance inst : set) {
             augumentEntity(inst,
                            processed,
                            outputInstances,
