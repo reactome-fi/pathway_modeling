@@ -20,10 +20,12 @@ import org.reactome.booleannetwork.BooleanNetwork;
 import org.reactome.booleannetwork.BooleanNetworkUtilities;
 import org.reactome.booleannetwork.BooleanVariable;
 import org.reactome.booleannetwork.FuzzyLogicSimulator;
+import org.reactome.booleannetwork.FuzzyLogicSimulator.ANDGateMode;
 import org.reactome.booleannetwork.IdentityFunction;
 import org.reactome.booleannetwork.SimulationComparator;
 import org.reactome.booleannetwork.SimulationConfiguration;
 import org.reactome.booleannetwork.SimulationResults;
+import org.reactome.booleannetwork.TransferFunction;
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.InteractionUtilities;
 
@@ -34,10 +36,37 @@ import org.reactome.r3.util.InteractionUtilities;
  */
 public class BNPerturbationAnalyzer {
 	private double defaultValue = 1.0d; // Used as the default value
+	private TransferFunction transferFunction;
+	private FuzzyLogicSimulator.ANDGateMode andGateMode = ANDGateMode.MIN; // For quick performance
+	private boolean debug = false;
 
 	public BNPerturbationAnalyzer() {
 	}
 	
+	public boolean isDebug() {
+		return debug;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public TransferFunction getTransferFunction() {
+		return transferFunction;
+	}
+
+	public void setTransferFunction(TransferFunction transferFunction) {
+		this.transferFunction = transferFunction;
+	}
+
+	public FuzzyLogicSimulator.ANDGateMode getAndGateMode() {
+		return andGateMode;
+	}
+
+	public void setAndGateMode(FuzzyLogicSimulator.ANDGateMode andGateMode) {
+		this.andGateMode = andGateMode;
+	}
+
 	public double getDefaultValue() {
 		return defaultValue;
 	}
@@ -316,7 +345,10 @@ public class BNPerturbationAnalyzer {
 	    simulator.setIteration(500); // Use 500 as the default to make sure an attractor can be reached actually.
 	    //      simulator.enableDebug(true);
 	    // Use the Identity function as the default here
-	    simulator.setTransferFunction(new IdentityFunction());
+	    simulator.setTransferFunction(transferFunction == null ? new IdentityFunction() : transferFunction);
+	    simulator.setAndGateMode(andGateMode == null ? ANDGateMode.MIN : andGateMode);
+	    simulator.enableDebug(debug);
+	    
 	    SimulationConfiguration configuration = new SimulationConfiguration();
 	    configuration.setDefaultValue(defaultValue);
 	    Map<BooleanVariable, Number> varToInitial = createInitials(network, 
