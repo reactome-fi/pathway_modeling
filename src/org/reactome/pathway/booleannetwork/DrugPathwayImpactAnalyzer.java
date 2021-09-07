@@ -35,7 +35,7 @@ import edu.ohsu.bcb.druggability.dataModel.Interaction;
 import smile.validation.AdjustedRandIndex;
 
 /**
- * Perform some type of systematic analysis for drugs based ob Boolean impact analysis results.
+ * Perform some type of systematic analysis for drugs based on Boolean impact analysis results.
  * @author wug
  *
  */

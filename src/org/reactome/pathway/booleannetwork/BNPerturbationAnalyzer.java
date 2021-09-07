@@ -33,10 +33,22 @@ import org.reactome.r3.util.InteractionUtilities;
  *
  */
 public class BNPerturbationAnalyzer {
+	private double defaultValue = 1.0d; // Used as the default value
 
 	public BNPerturbationAnalyzer() {
 	}
 	
+	public double getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(double defaultValue) {
+		if (defaultValue < 0.0d || defaultValue > 1.0d)
+			throw new IllegalArgumentException("Default value must be between 0.0 and 1.0 (inclusively)."
+					+ " The assigned value is: " + defaultValue + ".");
+		this.defaultValue = defaultValue;
+	}
+
 	public MySQLAdaptor getDBA() throws Exception {
 		MySQLAdaptor dba = new MySQLAdaptor("localhost",
 										   "reactome_63_plus_i", 
@@ -306,7 +318,7 @@ public class BNPerturbationAnalyzer {
 	    // Use the Identity function as the default here
 	    simulator.setTransferFunction(new IdentityFunction());
 	    SimulationConfiguration configuration = new SimulationConfiguration();
-	    configuration.setDefaultValue(1.0d);
+	    configuration.setDefaultValue(defaultValue);
 	    Map<BooleanVariable, Number> varToInitial = createInitials(network, 
 	                                                               configuration.getDefaultValue());
 	    configuration.setInitial(varToInitial);
