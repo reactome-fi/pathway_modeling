@@ -25,6 +25,10 @@ public class HillFunction implements TransferFunction {
     public HillFunction() {
     }
     
+    public void setParameter_g(double g) {
+    	this.g = g;
+    }
+    
     /**
      * Configure parameters for Hill functions. See the original paper for the
      * meanings of these parameters (Figure 1): https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3292705/.
