@@ -27,8 +27,18 @@ public class BooleanRelation extends BooleanObject {
 	@XmlElement(name="output")
 	@XmlIDREF
 	private BooleanVariable outputVariable;
+	// A relation can have its own transferFunction. This is optional.
+	private TransferFunction transferFunction;
 	
 	public BooleanRelation() {
+	}
+
+	public TransferFunction getTransferFunction() {
+		return transferFunction;
+	}
+
+	public void setTransferFunction(TransferFunction transferFunction) {
+		this.transferFunction = transferFunction;
 	}
 
 	/**

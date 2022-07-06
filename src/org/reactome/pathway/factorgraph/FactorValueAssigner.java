@@ -32,6 +32,8 @@ public class FactorValueAssigner {
         minor = PathwayFGConstants.EPSILON_VALUE / 2.0d;
     }
     
+    // Note added by G.W. on 04/05/22: Apparently the generated factor values cannot be used as probabilities for a case
+    // like this: 3 states input -> 2 states output.
     public List<Double> generateFactorValues(List<Variable> variables,
                                              List<FactorEdgeType> edgeTypes) {
         // In our implementation, there should be only one edge label
@@ -306,6 +308,22 @@ public class FactorValueAssigner {
                                valuesList.get(valueIndex) + "\t" + 
                                normalValueList.get(valueIndex));
         }
+    }
+    
+    @Test
+    public void testPerturbationValues() {
+    	DEBUG = true;
+        // Check reaction factor
+        System.out.println("Test Perturbation:");
+        List<Variable> variables = new ArrayList<Variable>();
+        List<FactorEdgeType> edgeTypes = new ArrayList<FactorEdgeType>();
+        testGenerateVariable(FactorEdgeType.INPUT, variables, edgeTypes);
+        Variable variable = new Variable(2);
+        variable.setName("Output");
+        variables.add(variable);
+        edgeTypes.add(FactorEdgeType.OUTPUT);
+        List<Double> values = generateFactorValues(variables, edgeTypes);
+        System.out.println("Values: " + values.size());
     }
     
     @Test

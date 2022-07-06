@@ -4,11 +4,15 @@
  */
 package org.reactome.booleannetwork;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * A simple identity function.
  * @author wug
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class IdentityFunction implements TransferFunction {
     
     public IdentityFunction() {

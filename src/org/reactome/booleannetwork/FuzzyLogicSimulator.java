@@ -337,7 +337,7 @@ public class FuzzyLogicSimulator extends Simulator {
             rtn = Double.MAX_VALUE;
         for (BooleanVariable var : inputVarToIsNegated.keySet()) {
             Boolean isNegated = inputVarToIsNegated.get(var);
-            Double transferValue = getTransferValue(var, varToValue);
+            Double transferValue = getTransferValue(var, varToValue, rel.getTransferFunction());
             if (transferValue == null)
                 continue;
             if (isNegated)
@@ -359,7 +359,7 @@ public class FuzzyLogicSimulator extends Simulator {
         double rtn = Double.MAX_VALUE;
         for (BooleanVariable var : inputVarToIsNegated.keySet()) {
             Boolean isNegated = inputVarToIsNegated.get(var);
-            Double transferValue = getTransferValue(var, varToValue);
+            Double transferValue = getTransferValue(var, varToValue, rel.getTransferFunction());
             if (transferValue == null)
                 continue;
             if (isNegated)
@@ -377,7 +377,7 @@ public class FuzzyLogicSimulator extends Simulator {
         double rtn = 1.0d;
         for (BooleanVariable var : inputVarToIsNegated.keySet()) {
             Boolean isNegated = inputVarToIsNegated.get(var);
-            Double transferValue = getTransferValue(var, varToValue);
+            Double transferValue = getTransferValue(var, varToValue, rel.getTransferFunction());
             if (transferValue == null)
                 continue;
             if (isNegated)
@@ -389,7 +389,10 @@ public class FuzzyLogicSimulator extends Simulator {
     }
     
     private Double getTransferValue(BooleanVariable var,
-                                    Map<BooleanVariable, Double> varToValue) {
+                                    Map<BooleanVariable, Double> varToValue,
+                                    TransferFunction transferFunction) {
+    	if (transferFunction == null)
+    		transferFunction = this.transferFunction; // Use the default TransferFunction is nothing here.
         Double value = varToValue.get(var);
         if (value == null) {
             if (var.isUseIdenticalTransfer())

@@ -7,11 +7,15 @@ package org.reactome.booleannetwork;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 /**
  * An implementation of transfer function based on constrained Hill function.
  * @author wug
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class HillFunction implements TransferFunction {
     // Currently hard-coded for the time being
     private int n = 3;
