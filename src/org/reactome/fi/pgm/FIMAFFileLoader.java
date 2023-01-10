@@ -15,7 +15,6 @@ import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.junit.Test;
 import org.reactome.cancer.base.MATFileLoader;
-import org.reactome.data.UniProtAnalyzer;
 import org.reactome.factorgraph.common.DataType;
 import org.reactome.r3.util.FileUtility;
 import org.reactome.r3.util.InteractionUtilities;

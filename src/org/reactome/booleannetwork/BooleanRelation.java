@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BooleanRelation extends BooleanObject {
@@ -28,11 +29,14 @@ public class BooleanRelation extends BooleanObject {
 	@XmlIDREF
 	private BooleanVariable outputVariable;
 	// A relation can have its own transferFunction. This is optional.
+	// For the time being, this is not supported at the server-side for ReactomeFIViz
+	@XmlTransient
 	private TransferFunction transferFunction;
 	
 	public BooleanRelation() {
 	}
 
+	@XmlTransient
 	public TransferFunction getTransferFunction() {
 		return transferFunction;
 	}

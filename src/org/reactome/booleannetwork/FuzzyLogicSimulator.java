@@ -142,11 +142,26 @@ public class FuzzyLogicSimulator extends Simulator {
                     continue;
                 // Get the maximum value since OR date should be used
                 double value = Double.NEGATIVE_INFINITY;
+                boolean isTransfered = false;
+                double negativeOnlyValue = 1.0d; // For negative only relation, we will dump 
+                                                 // the calculated value or the intial value
                 for (BooleanRelation rel : inRelations) {
                     Double transferValue = getTransferValue(rel, varToTransfer);
-                    if (transferValue > value)
+                    Map<BooleanVariable, Boolean> var2isNegated = rel.getInputVarToIsNegated();
+                    if (var2isNegated.size() == 1 && var2isNegated.values().stream().findAny().get()) {
+                    	// This should be negative value
+                    	if (transferValue < negativeOnlyValue)
+                    		negativeOnlyValue = transferValue;
+                    }
+                    else if (transferValue > value) {
                         value = transferValue;
+                        isTransfered = true;
+                    }
                 }
+                if (!isTransfered) {
+                	value = var.getValue().doubleValue();
+                }
+                value *= negativeOnlyValue; // Apply dumping is any from negation
                 // Apply inhibition and activation if any
                 value = modifyValue(var, value, inhibition, activation);
                 varToPostValue.put(var, value);
@@ -222,9 +237,9 @@ public class FuzzyLogicSimulator extends Simulator {
             value *= (1.0 - inhibition.get(var));
         else if (activation.containsKey(var)) {
             value *= (1.0 + activation.get(var));
-            if (value > 1.0d)
-                value = 1.0d; // The maximum value
         }
+        if (value > 1.0d)
+            value = 1.0d; // The maximum value
         return value;
     }
 
@@ -247,8 +262,8 @@ public class FuzzyLogicSimulator extends Simulator {
      * @return
      */
     private boolean _isAttractorReached() {
-        if (values.size() < 3)
-            return false; // We need at least three data points
+        if (values.size() < 2)
+            return false; // We need at least two data points
         // A simple case having one single value attractor
         int size = values.size();
         if (checkIsValuesEqual(values.get(size - 1), values.get(size - 2)))
